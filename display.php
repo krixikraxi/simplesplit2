@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
 $output = array();
-$query  = "SELECT * FROM bills WHERE billed = 0";
+$query  = "SELECT b.id, b.amount, b.date, b.notes, b.user, u.name FROM bills b JOIN users u ON b.user = u.id WHERE b.billed = 0 AND b.invoice IS NULL;";
 $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {

@@ -30,6 +30,7 @@
                     <th>Amount</th>
                     <th>Date</th>
                     <th>Notes</th>
+					<th>UserName</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -38,6 +39,7 @@
                     <td>{{x.amount}}</td>
                     <td>{{x.date}}</td>
                     <td>{{x.notes}}</td>
+					<td>{{x.name}}</td>
                     <td>
                         <button class="btn btn-success btn-xs" ng-click="update_data(x.id, x.amount, x.notes, x.user)">
                             <span class="glyphicon glyphicon-edit"></span> Edit
