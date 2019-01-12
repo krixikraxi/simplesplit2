@@ -60,20 +60,20 @@
 				<div class="col-sm">
 				
 					<h5>Results of the current billing iteration:</h5>
-					<div class="row">
+					<div class="row" ng-hide="sumOfUsers[0] === undefined">
 					  <div class="col-sm-6 col-lg-4">Sum for {{sumOfUsers[0].name}}:</div>
 					  <div class="col">{{sumOfUsers[0].userSum}}</div>
 					</div>
-					<div class="row">
+					<div class="row" ng-hide="sumOfUsers[1] === undefined">
 					  <div class="col-sm-6 col-lg-4">Sum for {{sumOfUsers[1].name}}:</div>
 					  <div class="col">{{sumOfUsers[1].userSum}}</div>
 					</div>
 					
-					<div class="row">
+					<div class="row" ng-hide="sumOfUsers[0] === undefined || sumOfUsers[1] === undefined">
 					  <div class="col-sm-6 col-lg-4">Difference:</div>
 					  <div class="col">{{differenceOfSums}}</div>
 					</div>
-					<div class="row">
+					<div class="row" ng-hide="sumOfUsers[0] === undefined && sumOfUsers[1] === undefined">
 					  <div class="col-sm-6 col-lg-4">{{fromToDisplay}}:</div>
 					  <div class="col"><strong>{{finalDebt}}</strong></div>
 					</div>
@@ -167,20 +167,29 @@
 			$http.get("invoice.php")
 				.success(function(data) {
 					//TODO: make this more readable.
-					$scope.sumOfUsers = data;
-					$scope.differenceOfSums = Math.abs(Number($scope.sumOfUsers[0].userSum) - Number($scope.sumOfUsers[1].userSum));
-					$scope.finalDebt = $scope.differenceOfSums/2;
 					
-					if (Number($scope.sumOfUsers[0].userSum) > Number($scope.sumOfUsers[1].userSum)) {
-						$scope.fromToDisplay = $scope.sumOfUsers[1].name 
-							+ " (pays) -> " 
-							+ $scope.sumOfUsers[0].name
-					} else if (Number($scope.sumOfUsers[0].userSum) < Number($scope.sumOfUsers[1].userSum)) {
-						$scope.fromToDisplay = $scope.sumOfUsers[0].name 
-							+ " (pays) -> " 
-							+ $scope.sumOfUsers[1].name
+					$scope.sumOfUsers = data;
+					
+					if (data === undefined || data.length == 0) {
+						return; // no user entered a bill
+					} else if (data.length < 2) {
+						$scope.fromToDisplay = "only user gets";
+						$scope.finalDebt = $scope.sumOfUsers[0].userSum/2;
 					} else {
-						$scope.fromToDisplay = "equal bills, everything is clear";
+						$scope.differenceOfSums = Math.abs(Number($scope.sumOfUsers[0].userSum) - Number($scope.sumOfUsers[1].userSum));
+						$scope.finalDebt = $scope.differenceOfSums/2;
+						
+						if (Number($scope.sumOfUsers[0].userSum) > Number($scope.sumOfUsers[1].userSum)) {
+							$scope.fromToDisplay = $scope.sumOfUsers[1].name 
+								+ " (pays) -> " 
+								+ $scope.sumOfUsers[0].name
+						} else if (Number($scope.sumOfUsers[0].userSum) < Number($scope.sumOfUsers[1].userSum)) {
+							$scope.fromToDisplay = $scope.sumOfUsers[0].name 
+								+ " (pays) -> " 
+								+ $scope.sumOfUsers[1].name
+						} else {
+							$scope.fromToDisplay = "equal bills, everything is clear";
+						}
 					}
 				});
 		}
@@ -216,4 +225,3 @@
 </script>  
 </body>  
 </html>  
- 
