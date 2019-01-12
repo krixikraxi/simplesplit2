@@ -1,10 +1,10 @@
 <?php
 include 'config.php';
 $output = array();
-$query  = "SELECT u.name, sum(b.amount) as userSum
+$query  = "SELECT u.name, sum(b.amount) AS userSum
 				FROM bills b 
 				JOIN users u ON b.user = u.id 
-				WHERE b.billed = 0 
+				WHERE invoice IS NULL 
 				GROUP BY b.user;";
 $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
@@ -13,4 +13,4 @@ if (mysqli_num_rows($result) > 0) {
     }
     echo json_encode($output);
 }
-?> 
+?>
