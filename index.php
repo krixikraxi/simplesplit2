@@ -183,10 +183,6 @@
 						$scope.fromToDisplay = "equal bills, everything is clear";
 					}
 				});
-			$http.get('user.php').
-				success(function(data) {
-					$scope.users = data;
-				});
 		}
 		$scope.update_data = function(id, amount, notes, user) {
 			$scope.id = id;
