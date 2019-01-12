@@ -4,6 +4,7 @@
 	<meta charset="UTF-8"> 
 	<title>Splitwise 2</title>  
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -13,8 +14,12 @@
 
 <div class="container">
     <div class="page-header">
-		<h1>Splitwise 2</h1>
-		<p class="lead">This system let you split your bills between two people. </p>
+		<h1>
+			Splitwise 2
+			<small class="text-muted">Manage your assets with a smile.</small>
+		</h1>
+		<p class="lead">This system enables you to split your bills between with ease.</p>
+		<hr>
     </div>
 	
 	<div id="success_alert" class="alert alert-success collapse">
@@ -53,8 +58,26 @@
 					<input type="submit" name="insert" class="btn btn-primary btn-sm" ng-click="insert()" value="{{btnName}}">
 				</div>
 				<div class="col-sm">
-					Results of current data:
-					Lorem ipsum...
+				
+					<h5>Results of the current billing iteration:</h5>
+					<div class="row">
+					  <div class="col-sm-6 col-lg-4">Sum for {{sumOfUsers[0].name}}:</div>
+					  <div class="col">{{sumOfUsers[0].userSum}}</div>
+					</div>
+					<div class="row">
+					  <div class="col-sm-6 col-lg-4">Sum for {{sumOfUsers[1].name}}:</div>
+					  <div class="col">{{sumOfUsers[1].userSum}}</div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-sm-6 col-lg-4">Difference:</div>
+					  <div class="col">{{differenceOfSums}}</div>
+					</div>
+					<div class="row">
+					  <div class="col-sm-6 col-lg-4">{{fromToDisplay}}:</div>
+					  <div class="col"><strong>{{finalDebt}}</strong></div>
+					</div>
+					
 				</div>
 			</div>
 			<div class="row">
@@ -99,12 +122,12 @@
 	app.controller("controller", function($scope, $http) {
 		$scope.btnName = "Insert";
 		$scope.insert = function() {
-			if ($scope.amount == null) {
-				alert("Enter Your Amount");
+			if ($scope.amount == null || $scope.amount <= 0 || isNaN($scope.amount)) {
+				alert("Enter the (positive) amount");
 			} else if ($scope.notes == null) {
-				alert("Enter Your Notes");
+				alert("Enter the notes");
 			} else if ($scope.user == null) {
-				alert("Enter Your User");
+				alert("Enter the user");
 			} else {
 				$http.post(
 					"insert.php", {
@@ -134,6 +157,32 @@
 					$scope.names = data;
 				});
 				
+			$http.get('user.php').
+				success(function(data) {
+					$scope.users = data;
+				});
+			$scope.show_invoice_data();
+		}
+		$scope.show_invoice_data = function() {
+			$http.get("invoice.php")
+				.success(function(data) {
+					//TODO: make this more readable.
+					$scope.sumOfUsers = data;
+					$scope.differenceOfSums = Math.abs(Number($scope.sumOfUsers[0].userSum) - Number($scope.sumOfUsers[1].userSum));
+					$scope.finalDebt = $scope.differenceOfSums/2;
+					
+					if (Number($scope.sumOfUsers[0].userSum) > Number($scope.sumOfUsers[1].userSum)) {
+						$scope.fromToDisplay = $scope.sumOfUsers[1].name 
+							+ " (pays) -> " 
+							+ $scope.sumOfUsers[0].name
+					} else if (Number($scope.sumOfUsers[0].userSum) < Number($scope.sumOfUsers[1].userSum)) {
+						$scope.fromToDisplay = $scope.sumOfUsers[0].name 
+							+ " (pays) -> " 
+							+ $scope.sumOfUsers[1].name
+					} else {
+						$scope.fromToDisplay = "equal bills, everything is clear";
+					}
+				});
 			$http.get('user.php').
 				success(function(data) {
 					$scope.users = data;
