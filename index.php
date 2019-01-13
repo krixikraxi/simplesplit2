@@ -68,7 +68,6 @@
 					  <div class="col-sm-6 col-lg-4">Sum for {{sumOfUsers[1].name}}:</div>
 					  <div class="col">{{sumOfUsers[1].userSum}}</div>
 					</div>
-					
 					<div class="row" ng-hide="sumOfUsers[0] === undefined || sumOfUsers[1] === undefined">
 					  <div class="col-sm-6 col-lg-4">Difference:</div>
 					  <div class="col">{{differenceOfSums}}</div>
@@ -110,6 +109,11 @@
 							</td>
 						</tr>
 					</table>
+				</div>
+			</div>
+			<div class="row" ng-hide="sumOfUsers[0] === undefined && sumOfUsers[1] === undefined">
+				<div class="col-sm mb-3">
+					<input type="submit" name="createInvoice" class="btn btn-primary btn-sm" ng-click="create_invoice()" value="Create Invoice">
 				</div>
 			</div>
 		</div>
@@ -163,8 +167,20 @@
 				});
 			$scope.show_invoice_data();
 		}
+		$scope.create_invoice = function() {
+			$http.get("createInvoice.php")
+				.success(function(data) {
+					// TODO: create errormessage
+					$('#success_alert').show('fade');
+					$('#alert_text').text(data);
+					setTimeout(function () {
+						$('#success_alert').hide('fade');
+					}, 5000);
+					$scope.show_data();
+				});
+		}
 		$scope.show_invoice_data = function() {
-			$http.get("invoice.php")
+			$http.get("showInvoice.php")
 				.success(function(data) {
 					//TODO: make this more readable.
 					
@@ -188,7 +204,7 @@
 								+ " (pays) -> " 
 								+ $scope.sumOfUsers[1].name
 						} else {
-							$scope.fromToDisplay = "equal bills, everything is clear";
+							$scope.fromToDisplay = "equal bills";
 						}
 					}
 				});
@@ -206,6 +222,7 @@
 						'id': id
 					})
 					.success(function(data) {
+						// TODO: create errormessage
 						$('#success_alert').show('fade');
 						$('#alert_text').text(data);
 						setTimeout(function () {
@@ -224,4 +241,4 @@
     });
 </script>  
 </body>  
-</html>  
+</html>
