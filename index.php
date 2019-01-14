@@ -193,7 +193,9 @@
 						$scope.finalDebt = $scope.sumOfUsers[0].userSum/2;
 					} else {
 						$scope.differenceOfSums = Math.abs(Number($scope.sumOfUsers[0].userSum) - Number($scope.sumOfUsers[1].userSum));
+						$scope.differenceOfSums = Math.round($scope.differenceOfSums * 100) / 100;
 						$scope.finalDebt = $scope.differenceOfSums/2;
+						$scope.finalDebt = Math.round($scope.finalDebt * 100) / 100;
 						
 						if (Number($scope.sumOfUsers[0].userSum) > Number($scope.sumOfUsers[1].userSum)) {
 							$scope.fromToDisplay = $scope.sumOfUsers[1].name 
