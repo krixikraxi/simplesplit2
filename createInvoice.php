@@ -11,7 +11,7 @@ if (mysqli_num_rows($result) <= 0) {
 
 $queryInsertInvoice = "INSERT INTO invoices (notes) VALUES ('standard note');";
 if (mysqli_query($conn, $queryInsertInvoice)) {
-	$queryUpdateBills = "UPDATE bills SET invoice = " . mysqli_insert_id($conn) . " WHERE invoice IS NULL;";
+	$queryUpdateBills = "UPDATE bills SET invoice = " . mysqli_insert_id($conn) . " WHERE invoice IS NULL AND deleted = 0;";
 	if (mysqli_query($conn, $queryUpdateBills)) {
 		echo 'New invoice created.';
 	} else {
