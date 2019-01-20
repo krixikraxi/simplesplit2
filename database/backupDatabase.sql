@@ -36,7 +36,7 @@ CREATE TABLE `bills` (
   KEY `bills_invoices_FK` (`invoice`),
   CONSTRAINT `bills_invoices_FK` FOREIGN KEY (`invoice`) REFERENCES `invoices` (`id`),
   CONSTRAINT `bills_users_FK` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +45,7 @@ CREATE TABLE `bills` (
 
 LOCK TABLES `bills` WRITE;
 /*!40000 ALTER TABLE `bills` DISABLE KEYS */;
+INSERT INTO `bills` VALUES (80,11.68,'2019-01-20 10:15:44','spar 19.01.',2,0,NULL,NULL),(81,21.08,'2019-01-20 10:16:19','merkur 18.01',2,0,NULL,'2019-01-20 10:16:29'),(82,42.54,'2019-01-20 10:17:15','merkur 17.01',2,0,NULL,NULL),(83,22.74,'2019-01-20 10:18:02','spar 14.01',2,0,NULL,NULL),(84,30.54,'2019-01-20 10:18:37','eurospar 16.01',2,0,NULL,NULL),(85,66.07,'2019-01-20 10:19:48','spar 09.01',2,0,NULL,NULL),(86,51.13,'2019-01-20 10:21:55','merkur 02.01',1,0,NULL,NULL);
 /*!40000 ALTER TABLE `bills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -123,4 +124,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-19 19:13:00
+-- Dump completed on 2019-01-20 10:52:22

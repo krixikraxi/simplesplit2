@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
 $output = array();
-$query  = "SELECT u.name, sum(b.amount) AS userSum
+$query  = "SELECT u.name, ROUND(SUM(b.amount), 2) AS userSum
 				FROM bills b 
 				JOIN users u ON b.user = u.id 
 				WHERE invoice IS NULL AND b.deleted = 0

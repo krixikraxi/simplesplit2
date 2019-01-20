@@ -126,6 +126,7 @@
 	app.controller("controller", function($scope, $http) {
 		$scope.btnName = "Insert";
 		$scope.insert = function() {
+			$scope.amount = $scope.amount.replace(',', '.');
 			if ($scope.amount == null || $scope.amount <= 0 || isNaN($scope.amount)) {
 				alert("Enter the (positive) amount");
 			} else if ($scope.notes == null) {
@@ -168,7 +169,8 @@
 			$scope.show_invoice_data();
 		}
 		$scope.create_invoice = function() {
-			$http.get("createInvoice.php")
+			if (confirm("Are you sure you want to create a invoice?")) {
+				$http.get("createInvoice.php")
 				.success(function(data) {
 					// TODO: create errormessage
 					$('#success_alert').show('fade');
@@ -178,6 +180,7 @@
 					}, 5000);
 					$scope.show_data();
 				});
+			}
 		}
 		$scope.show_invoice_data = function() {
 			$http.get("showInvoice.php")
