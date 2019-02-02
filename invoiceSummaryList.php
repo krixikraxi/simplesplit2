@@ -7,7 +7,8 @@ $query  = 	"SELECT i.id,
 					ROUND(SUM(CASE WHEN b.user = 2 THEN b.amount ELSE 0 END),2) AS manu 
 			FROM bills b JOIN invoices i ON b.invoice = i.id 
 			WHERE b.deleted = 0 AND b.invoice IS NOT NULL
-			GROUP BY b.invoice";
+			GROUP BY b.invoice
+			ORDER BY i.date DESC";
 $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {

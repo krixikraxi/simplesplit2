@@ -41,7 +41,7 @@
 						</tr>
 						<tr ng-repeat="x in invoices">
 							<td>{{x.id}}</td>
-							<td>{{x.date}}</td>
+							<td>{{x.date | dateToISO | date:'dd.MM.yyyy, H:mm'}}</td>
 							<td>{{x.alex}}</td>
 							<td>{{x.manu}}</td>
 							<td>{{Math.round(Math.abs(x.manu - x.alex) * 100) / 100}}</td>
@@ -63,9 +63,14 @@
 					$scope.invoices = data;
 				});
 		}
-
-
 	});
+	app.filter('dateToISO', function() {
+		 return function(input) {
+			 input = new Date(input).toISOString();
+			 return input;
+	    };
+	});
+	
 </script>  
 </body>  
 </html>

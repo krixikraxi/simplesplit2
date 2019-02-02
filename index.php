@@ -100,7 +100,7 @@
 						<tr ng-repeat="x in names">
 							<td>{{x.id}}</td>
 							<td>{{x.amount}}</td>
-							<td>{{x.date}}</td>
+							<td>{{x.date | dateToISO | date:'dd.MM.yyyy, H:mm'}}</td>
 							<td>{{x.notes}}</td>
 							<td>{{x.name}}</td>
 							<td>
@@ -252,6 +252,13 @@
 	$('#linkClose').click(function () {
         $('#success_alert').hide('fade');
     });
+	
+	app.filter('dateToISO', function() {
+		 return function(input) {
+			 input = new Date(input).toISOString();
+			 return input;
+	    };
+	});
 </script>  
 </body>  
 </html>
