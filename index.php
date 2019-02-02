@@ -18,7 +18,7 @@
 			Splitwise 2
 			<small class="text-muted">Manage your assets with a smile.</small>
 		</h1>
-		<p class="lead">This system enables you to split your bills between with ease.</p>
+		<p class="lead">This system enables you to split your bills with ease.</p>
 		<hr>
     </div>
 	
@@ -77,6 +77,12 @@
 					  <div class="col"><strong>{{finalDebt}}</strong></div>
 					</div>
 					
+					<div class="row">
+						<div class="col-sm mb-3">
+							View past <a href="invoiceList.php">invoices.</a>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 			<div class="row">
@@ -126,7 +132,9 @@
 	app.controller("controller", function($scope, $http) {
 		$scope.btnName = "Insert";
 		$scope.insert = function() {
-			$scope.amount = $scope.amount.replace(',', '.');
+			if($scope.amount != null) {
+				$scope.amount = $scope.amount.replace(',', '.');
+			}
 			if ($scope.amount == null || $scope.amount <= 0 || isNaN($scope.amount)) {
 				alert("Enter the (positive) amount");
 			} else if ($scope.notes == null) {
