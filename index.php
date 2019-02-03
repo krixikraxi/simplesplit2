@@ -70,11 +70,11 @@
 					</div>
 					<div class="row" ng-hide="sumOfUsers[0] === undefined || sumOfUsers[1] === undefined">
 					  <div class="col-sm-6 col-lg-4">Difference:</div>
-					  <div class="col">{{differenceOfSums}}</div>
+					  <div class="col">{{differenceOfSums | number:2}}</div>
 					</div>
 					<div class="row" ng-hide="sumOfUsers[0] === undefined && sumOfUsers[1] === undefined">
 					  <div class="col-sm-6 col-lg-4">{{fromToDisplay}}:</div>
-					  <div class="col"><strong>{{finalDebt}}</strong></div>
+					  <div class="col"><strong>{{finalDebt | number:2}}</strong></div>
 					</div>
 					
 					<div class="row">
@@ -90,8 +90,8 @@
 					<table class="table table-bordered">
 						<tr>
 							<th>Id</th>
-							<th>Amount</th>
 							<th>Date</th>
+							<th>Amount</th>
 							<th>Notes</th>
 							<th>UserName</th>
 							<th>Edit</th>
@@ -99,8 +99,8 @@
 						</tr>
 						<tr ng-repeat="x in names">
 							<td>{{x.id}}</td>
-							<td>{{x.amount}}</td>
 							<td>{{x.date | dateToISO | date:'dd.MM.yyyy, H:mm'}}</td>
+							<td>{{x.amount | number:2}}</td>
 							<td>{{x.notes}}</td>
 							<td>{{x.name}}</td>
 							<td>

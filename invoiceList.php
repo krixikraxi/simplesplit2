@@ -44,8 +44,8 @@
 							<td>{{x.date | dateToISO | date:'dd.MM.yyyy, H:mm'}}</td>
 							<td>{{x.alex}}</td>
 							<td>{{x.manu}}</td>
-							<td>{{Math.round(Math.abs(x.manu - x.alex) * 100) / 100}}</td>
-							<td> {{x.alex > x.manu ? "Manu -> Alex: " : "Alex -> Manu: "}} {{((Math.round(Math.abs(x.manu - x.alex) * 100) / 100) / 2)}}</td>
+							<td>{{Math.round(Math.abs(x.manu - x.alex) * 100) / 100 | number:2}}</td>
+							<td> {{x.alex > x.manu ? "Manu -> Alex: " : "Alex -> Manu: "}} {{((Math.round(Math.abs(x.manu - x.alex) * 100) / 100) / 2) | number:2}}</td>
 						</tr>
 					</table>
 				</div>
