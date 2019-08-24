@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: splitwisedev
 -- ------------------------------------------------------
--- Server version	10.1.37-MariaDB-0+deb9u1
+-- Server version	10.1.38-MariaDB-0+deb9u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -125,4 +125,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-16 20:16:58
+-- Dump completed on 2019-08-24 19:25:48
